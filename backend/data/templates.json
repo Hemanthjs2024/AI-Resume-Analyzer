@@ -1,0 +1,123 @@
+{
+  "schema_version": "1.0",
+  "templates": [
+    {
+      "template_type": "chronological_classic",
+      "label": "Chronological Classic",
+      "best_for": [
+        "Experienced professionals",
+        "Candidates with steady work history",
+        "Most corporate and IT roles"
+      ],
+      "preferred_section_order": [
+        "summary",
+        "work_experience",
+        "internships",
+        "technical_skills",
+        "projects",
+        "education",
+        "certifications",
+        "awards",
+        "interests"
+      ],
+      "rendering": {
+        "page_style": "single_column",
+        "show_icons": false,
+        "show_photo": false,
+        "use_tables": false,
+        "use_text_boxes": false,
+        "font_family": "Arial",
+        "font_size_body": 11,
+        "font_size_heading": 13
+      }
+    },
+    {
+      "template_type": "modern_minimal",
+      "label": "Modern Minimal",
+      "best_for": [
+        "Mid-level professionals",
+        "Clean ATS-friendly resumes",
+        "Balanced experience and skills"
+      ],
+      "preferred_section_order": [
+        "summary",
+        "core_competencies",
+        "technical_skills",
+        "work_experience",
+        "internships",
+        "projects",
+        "education",
+        "certifications",
+        "interests"
+      ],
+      "rendering": {
+        "page_style": "single_column",
+        "show_icons": false,
+        "show_photo": false,
+        "use_tables": false,
+        "use_text_boxes": false,
+        "font_family": "Calibri",
+        "font_size_body": 11,
+        "font_size_heading": 13
+      }
+    },
+    {
+      "template_type": "skills_projects",
+      "label": "Skills and Projects",
+      "best_for": [
+        "Freshers",
+        "Career switchers",
+        "Technical candidates with projects or internships"
+      ],
+      "preferred_section_order": [
+        "summary",
+        "technical_skills",
+        "projects",
+        "internships",
+        "work_experience",
+        "education",
+        "certifications",
+        "interests"
+      ],
+      "rendering": {
+        "page_style": "single_column",
+        "show_icons": false,
+        "show_photo": false,
+        "use_tables": false,
+        "use_text_boxes": false,
+        "font_family": "Arial",
+        "font_size_body": 11,
+        "font_size_heading": 13
+      }
+    },
+    {
+      "template_type": "executive_leadership",
+      "label": "Executive Leadership",
+      "best_for": [
+        "Managers",
+        "Team leads",
+        "Senior and leadership roles"
+      ],
+      "preferred_section_order": [
+        "summary",
+        "core_competencies",
+        "work_experience",
+        "internships",
+        "awards",
+        "education",
+        "certifications",
+        "interests"
+      ],
+      "rendering": {
+        "page_style": "single_column",
+        "show_icons": false,
+        "show_photo": false,
+        "use_tables": false,
+        "use_text_boxes": false,
+        "font_family": "Times New Roman",
+        "font_size_body": 11,
+        "font_size_heading": 13
+      }
+    }
+  ]
+}
