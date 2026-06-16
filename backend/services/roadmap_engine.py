@@ -93,7 +93,7 @@ def generate_weekly_plan(committed_projects: list[dict], skill_gaps: list[dict],
     estimated_time = project.get("estimated_time", "3 weeks")
 
     # Determine total weeks (normalize en-dash to hyphen for consistent matching)
-    et = estimated_time.replace("–", "-")
+    et = str(estimated_time or "3 weeks").replace("–", "-")
     if "4-5" in et or "5" in et:
         total_weeks = 5
     elif "3-4" in et or "4" in et:

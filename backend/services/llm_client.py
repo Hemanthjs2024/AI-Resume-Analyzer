@@ -381,11 +381,24 @@ def _call_llm(prompt: str) -> str:
     try:
         import google.generativeai as genai
         genai.configure(api_key=GOOGLE_API_KEY)
-        model = genai.GenerativeModel("gemini-2.0-flash")
+        
+        # Use configured model or default to gemini-2.0-flash
+        model_name = os.getenv("LLM_MODEL", "gemini-2.0-flash")
+        model = genai.GenerativeModel(model_name)
         response = model.generate_content(prompt)
-        return response.text.strip()
+        
+        # Best case: simple text access
+        try:
+            return response.text.strip()
+        except Exception:
+            # Fallback for safety-blocked or multi-part responses
+            if hasattr(response, "candidates") and response.candidates:
+                cand = response.candidates[0]
+                if cand.content and cand.content.parts:
+                    return cand.content.parts[0].text.strip()
+            return ""
     except Exception as e:
-        logger.error("LLM call failed: %s", e)
+        logger.error("LLM call failed for model %s: %s", os.getenv("LLM_MODEL", "gemini-2.0-flash"), e)
         return ""
 
 

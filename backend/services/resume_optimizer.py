@@ -3,7 +3,7 @@ Resume Optimizer — Uses LLM client to rewrite resume sections.
 Returns original vs optimized side-by-side for user review.
 """
 
-from services import llm_client
+from . import llm_client
 
 
 def optimize_resume(sections: dict, jd_data: dict, user_skills: list[str]) -> list[dict]:

@@ -1,5 +1,5 @@
 import re
-from services.skill_graph import get_all_skills, normalize_skill
+from .skill_graph import get_all_skills, normalize_skill
 
 
 def extract_skills_from_text(text: str) -> list[str]:

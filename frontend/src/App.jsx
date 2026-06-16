@@ -9,9 +9,12 @@ import ScoreDownloadStep from './pages/ScoreDownloadStep';
 import SuggestionCartStep from './pages/SuggestionCartStep';
 import RoadmapPopup from './components/RoadmapPopup';
 import ChatAssistant from './components/ChatAssistant';
+import AnalysisLoader from './components/AnalysisLoader';
+import { AnimatePresence } from 'framer-motion';
 
 function App() {
   const currentStep = useAppStore(state => state.currentStep);
+  const isLoading = useAppStore(state => state.isLoading);
   const roadmap = useAppStore(state => state.roadmap);
   const analysisResult = useAppStore(state => state.analysisResult);
 
@@ -55,6 +58,10 @@ function App() {
       
       {/* Fullscreen Overlays */}
       {roadmap && <RoadmapPopup />}
+      
+      <AnimatePresence>
+        {isLoading && <AnalysisLoader />}
+      </AnimatePresence>
       
       {/* Abstract Background Decoration */}
       <div className="fixed top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-indigo-900/20 blur-[120px] pointer-events-none z-0"></div>

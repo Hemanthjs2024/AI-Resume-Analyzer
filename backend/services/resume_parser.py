@@ -472,7 +472,7 @@ def extract_structured_data_rule_based(raw_text: str, sections: dict[str, str]) 
     }
 
 
-from services import llm_client
+from . import llm_client
 
 
 def parse_resume(file_bytes: bytes, filename: str) -> dict:

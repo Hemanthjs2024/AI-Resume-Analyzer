@@ -1,4 +1,4 @@
-from services.skill_graph import find_best_path, compute_confidence, compute_risk
+from .skill_graph import find_best_path, compute_confidence, compute_risk
 
 
 def analyze_gaps(user_skills: list[str], jd_skills: list[str]) -> dict:

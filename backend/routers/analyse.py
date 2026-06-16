@@ -19,10 +19,12 @@ async def analyse_resume(
     resume: UploadFile = File(...),
     jd_text: str = Form(...),
 ):
-    if not resume.filename:
-        raise HTTPException(status_code=400, detail="No resume file provided")
-    if not jd_text.strip():
-        raise HTTPException(status_code=400, detail="Job description text is required")
+    if not resume or not resume.filename:
+        logger.warning("Analyse request failed: No resume file provided")
+        raise HTTPException(status_code=400, detail="No resume file provided. Please upload a PDF or DOCX.")
+    if not jd_text or not jd_text.strip():
+        logger.warning("Analyse request failed: Empty job description")
+        raise HTTPException(status_code=400, detail="Job description text is required for analysis.")
 
     try:
         file_bytes = await resume.read()
@@ -60,6 +62,9 @@ async def analyse_resume(
 
         review_items = optimize_resume(normalized, jd_data, user_skills)
         candidate_name = structured_data.get("candidate", {}).get("full_name", "Professional")
+
+        # Attach full AI insights to score
+        score["ai_analysis"] = ai_analysis
 
         return {
             "success": True,

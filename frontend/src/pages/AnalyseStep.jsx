@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { AlertTriangle, Target, CheckCircle2, ChevronRight, Cpu, RefreshCcw } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Loader2, AlertTriangle, Target, CheckCircle2, ChevronRight, Cpu, RefreshCcw } from 'lucide-react';
 import useAppStore from '../store/useAppStore';
 
 export default function AnalyseStep() {
@@ -209,7 +209,6 @@ export default function AnalyseStep() {
         </p>
       </div>
 
-      {/* Gap Analysis + Projects — always shown */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Gap Analysis Column */}
         <div className="flex flex-col h-[500px]">
@@ -253,7 +252,7 @@ export default function AnalyseStep() {
                 )}
               </div>
             ))}
-            {(gap_analysis?.gaps || []).length === 0 && (
+            {gap_analysis.gaps.length === 0 && (
               <div className="p-8 text-center text-slate-400">
                 <CheckCircle2 className="w-8 h-8 text-green-400 mx-auto mb-2" />
                 No skill gaps found! You are a perfect technical match.
@@ -265,7 +264,7 @@ export default function AnalyseStep() {
         {/* Project Suggestions Column */}
         <div className="flex flex-col h-[500px]">
           <div className="flex items-center gap-2 mb-4 text-cyan-400 font-semibold flex-shrink-0">
-            <Cpu className="w-5 h-5" /> AI-Suggested Projects to Bridge Gaps
+            <Cpu className="w-5 h-5" /> Suggested Projects to Bridge Gaps
           </div>
           
           <div className="overflow-y-auto flex-1 pr-2 custom-scrollbar space-y-4">
@@ -294,18 +293,6 @@ export default function AnalyseStep() {
                 
                 <p className="text-sm text-slate-400 mb-3">{project.description}</p>
                 
-                {/* Show bullets if present */}
-                {project.bullets && project.bullets.length > 0 && (
-                  <ul className="text-xs text-slate-400 mb-3 space-y-1 list-none">
-                    {project.bullets.map((bullet, bi) => (
-                      <li key={bi} className="flex gap-2">
-                        <span className="text-cyan-500 mt-0.5 flex-shrink-0">•</span>
-                        <span>{bullet}</span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-                
                 <div className="flex flex-wrap gap-2 mb-3">
                   {(project?.tech_stack || []).map((tech, i) => (
                     <span key={i} className="px-2 py-0.5 text-xs bg-slate-700/50 text-slate-300 rounded">
@@ -317,25 +304,20 @@ export default function AnalyseStep() {
                 <div className="flex items-center gap-4 text-xs text-slate-500">
                   <span>⏱ {project.estimated_time}</span>
                   <span>🎯 Bridges: <span className="text-indigo-400 font-medium">{project.target_skill}</span></span>
-                  {project.strategic_weight && (
-                    <span>⚡ Weight: <span className="text-amber-400 font-medium">{project.strategic_weight}%</span></span>
-                  )}
                 </div>
               </div>
             ))}
             
-            {(!committedProjects || committedProjects.length === 0) && (
+            {committedProjects.length === 0 && (
               <div className="p-8 text-center text-slate-500 border border-dashed border-slate-700 rounded-xl">
-                <Cpu className="w-8 h-8 mx-auto mb-3 opacity-30" />
-                <p>No project suggestions available.</p>
-                <p className="text-xs mt-1">Try re-running the analysis with a more specific job description.</p>
+                No reachable projects needed for this role.
               </div>
             )}
           </div>
           
-          {committedProjects && committedProjects.length > 0 && (
+          {committedProjects.length > 0 && (
             <p className="text-xs text-slate-500 text-center uppercase tracking-wide mt-2">
-              Click projects to commit. Committed projects appear in your generated resume & roadmap.
+              Select projects you commit to building. They will be added to your generated resume and roadmap.
             </p>
           )}
         </div>
@@ -347,29 +329,20 @@ export default function AnalyseStep() {
           <span className="text-white font-medium">{committedProjects.filter(p => p.committed).length}</span> projects committed
         </div>
         
-        {isHighlyOptimized ? (
-          <div className="flex items-center gap-3">
-            <button
-              onClick={() => setShowThankYou(true)}
-              className="px-5 py-2.5 text-slate-400 hover:text-white transition-colors font-medium"
-            >
-              No Thanks
-            </button>
-            <button
-              onClick={nextStep}
-              className="px-6 py-2.5 bg-gradient-to-r from-indigo-500 to-cyan-500 hover:from-indigo-400 hover:to-cyan-400 text-white rounded-lg font-medium flex items-center gap-2 transition-transform hover:scale-[1.02] active:scale-95 shadow-lg shadow-indigo-500/20"
-            >
-              Show Suggestions for 100% <ChevronRight className="w-4 h-4" />
-            </button>
-          </div>
-        ) : (
+        <div className="flex items-center gap-3">
+          <button
+            onClick={resetApp}
+            className="px-5 py-2.5 text-slate-400 hover:text-white transition-colors font-medium"
+          >
+            Reset
+          </button>
           <button
             onClick={nextStep}
-            className="px-6 py-2.5 bg-white text-slate-900 rounded-lg font-medium flex items-center gap-2 transition-transform hover:scale-[1.02] active:scale-95"
+            className="px-6 py-2.5 bg-gradient-to-r from-indigo-500 to-cyan-500 hover:from-indigo-400 hover:to-cyan-400 text-white rounded-lg font-medium flex items-center gap-2 transition-transform hover:scale-[1.02] active:scale-95 shadow-lg shadow-indigo-500/20"
           >
-            Review Optimizations <ChevronRight className="w-4 h-4" />
+            Review Resume Content <ChevronRight className="w-4 h-4" />
           </button>
-        )}
+        </div>
       </div>
     </motion.div>
   );
